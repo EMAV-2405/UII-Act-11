@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block titulo %}Eliminar Vehículo | FORD Gestión{% endblock %}
+
+{% block contenido %}
+<h2>¿Estás seguro de que quieres borrar el vehículo "{{ vehiculo.modelo }}" ({{ vehiculo.año }})?</h2>
+<p>Esta acción eliminará también todos los servicios de mantenimiento asociados y no se puede deshacer.</p>
+<form method="post">
+    {% csrf_token %}
+    <div class="actions">
+        <button type="submit" class="btn btn-danger">Sí, Borrar Vehículo</button>
+        <a href="{% url 'app_vehiculosYservicios:detalle_vehiculo' vehiculo.id %}" class="btn">Cancelar</a>
+    </div>
+</form>
+{% endblock %}

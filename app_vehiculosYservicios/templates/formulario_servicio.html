@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block titulo %}{{ titulo }} | FORD Gestión{% endblock %}
+
+{% block contenido %}
+<h2>{{ titulo }}</h2>
+<p class="subtitle">Vehículo: <strong>{{ vehiculo.modelo }} ({{ vehiculo.año }})</strong></p>
+<form method="post" class="form-styled">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <div class="actions">
+        <button type="submit" class="btn btn-primary">Guardar Servicio</button>
+        <a href="{% url 'app_vehiculosYservicios:detalle_vehiculo' vehiculo.id %}" class="btn">Cancelar</a>
+    </div>
+</form>
+{% endblock %}

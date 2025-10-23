@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block titulo %}{{ vehiculo.modelo }} | FORD Gestión{% endblock %}
+
+{% block contenido %}
+<article class="detail-container">
+    <div class="detail-banner">
+        {% if vehiculo.foto %}
+            <img src="{{ vehiculo.foto.url }}" alt="Foto de {{ vehiculo.modelo }}" class="detail-photo">
+        {% else %}
+            <div class="detail-placeholder">👤</div>
+        {% endif %}
+        <div class="detail-info">
+            <h1>{{ vehiculo.modelo }}</h1>
+            <h3>Año: {{ vehiculo.año }} | Color: {{ vehiculo.color }}</h3>
+            <p><strong>Precio:</strong> ${{ vehiculo.precio|floatformat:2 }}</p>
+            <p><strong>Cantidad Disponible:</strong> {{ vehiculo.cant_disponible }}</p>
+        </div>
+    </div>
+
+    <div class="detail-actions">
+        <a href="{% url 'app_vehiculosYservicios:editar_vehiculo' vehiculo.id %}" class="btn btn-secondary">✏️ Editar Vehículo</a>
+        <a href="{% url 'app_vehiculosYservicios:borrar_vehiculo' vehiculo.id %}" class="btn btn-danger">🗑️ Borrar Vehículo</a>
+    </div>
+
+    <section class="related-section">
+        <h2>Servicios de Mantenimiento</h2>
+        <a href="{% url 'app_vehiculosYservicios:crear_servicio' vehiculo.id %}" class="btn btn-primary btn-small">➕ Nuevo Servicio</a>
+        {% if servicios %}
+        <ul class="list-items">
+            {% for servicio in servicios %}
+            <li class="list-item-detail">
+                <span><strong>{{ servicio.tipo_servicio }}</strong> ({{ servicio.fecha_servicio|date:"d M Y" }})</span>
+                <span>Cliente: {{ servicio.id_cliente }} | Costo: ${{ servicio.costo_servicio|floatformat:2 }}</span>
+                <div class="item-actions">
+                    <a href="{% url 'app_vehiculosYservicios:editar_servicio' servicio.id %}" class="btn btn-secondary btn-small">Editar</a>
+                    <a href="{% url 'app_vehiculosYservicios:borrar_servicio' servicio.id %}" class="btn btn-danger btn-small">Borrar</a>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <p class="empty-message">No hay servicios registrados para este vehículo.</p>
+        {% endif %}
+    </section>
+</article>
+{% endblock %}

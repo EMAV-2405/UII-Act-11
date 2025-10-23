@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block titulo %}Vehículos | FORD Gestión{% endblock %}
+
+{% block contenido %}
+<div class="page-header">
+    <h2>Vehículos Disponibles</h2>
+    <a href="{% url 'app_vehiculosYservicios:crear_vehiculo' %}" class="btn btn-primary">+ Registrar Vehículo</a>
+</div>
+
+<ul class="grid-layout">
+    {% for vehiculo in vehiculos %}
+    <li class="card">
+        <a href="{% url 'app_vehiculosYservicios:detalle_vehiculo' vehiculo.id %}">
+            {% if vehiculo.foto %}
+                <img src="{{ vehiculo.foto.url }}" alt="Foto de {{ vehiculo.modelo }}" class="card-img">
+            {% else %}
+                <div class="card-placeholder">🚗</div>
+            {% endif %}
+            <h3>{{ vehiculo.modelo }}</h3>
+            <p class="card-detail">Año: {{ vehiculo.año }}</p>
+            <p class="card-detail">Precio: ${{ vehiculo.precio|floatformat:2 }}</p>
+            <p class="card-detail">Disponibles: {{ vehiculo.cant_disponible }}</p>
+        </a>
+    </li>
+    {% empty %}
+    <li class="no-items">No hay vehículos registrados.</li>
+    {% endfor %}
+</ul>
+{% endblock %}

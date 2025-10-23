@@ -1,0 +1,29 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block titulo %}FORD Gestión{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <div class="wrapper">
+        <header class="main-header">
+            <h1><a href="{% url 'app_vehiculosYservicios:listar_vehiculos' %}">🚗 FORD Gestión</a></h1>
+            <nav class="main-nav">
+                <a href="{% url 'app_vehiculosYservicios:listar_vehiculos' %}">📋 Vehículos</a>
+                <a href="{% url 'app_vehiculosYservicios:crear_vehiculo' %}">➕ Nuevo Vehículo</a>
+            </nav>
+        </header>
+
+        <main class="main-content">
+            {% block contenido %}{% endblock %}
+        </main>
+
+        <footer class="main-footer">
+            <p>© 2025 FORD Gestión - Aplicación educativa de Django</p>
+        </footer>
+    </div>
+</body>
+</html>
